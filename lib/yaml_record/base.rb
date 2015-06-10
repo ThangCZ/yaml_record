@@ -88,6 +88,7 @@ module YamlRecord
       updated_attrs.each { |k,v| self.send("#{k}=", v) }
       self.save
     end
+    alias_method :update, :update_attributes
 
     # Returns array of instance attributes names; An attribute is a value stored for this record (persisted or not)
     #
@@ -139,6 +140,11 @@ module YamlRecord
     #
     def destroyed?
       self.is_destroyed
+    end
+
+
+    def persisted?
+      !new_record? && !destroyed?
     end
 
     # Remove a persisted YamlRecord object
@@ -356,6 +362,7 @@ module YamlRecord
     # Overrides equality to match if matching ids
     #
     def ==(comparison_record)
+      return false unless self.class == comparison_record.class
       self.id == comparison_record.id
     end
 
