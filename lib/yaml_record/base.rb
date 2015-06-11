@@ -5,8 +5,6 @@ module YamlRecord
     include ActiveSupport::Callbacks
     define_callbacks :before_save, :after_save, :before_destroy, :after_destroy, :before_validation, :before_create, :after_create
 
-    set_callback :before_create, :before, :set_id!
-
     # Constructs a new YamlRecord instance based on specified attribute hash
     #
     # === Example:
