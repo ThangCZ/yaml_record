@@ -254,7 +254,7 @@ module YamlRecord
       #   Post.find_by_id("a1b2c3")  => @post
       #
       def find_by_id(value)
-        self.find_by_attribute(:id, value)
+        self.find_by_attribute(:id, value.to_i)
       end
       alias :find :find_by_id
     end
