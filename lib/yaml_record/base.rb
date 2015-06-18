@@ -15,7 +15,7 @@ module YamlRecord
     #
     def initialize(attr_hash={})
       attr_hash.deep_stringify_keys!
-      attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key] = nil; result })
+      attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key.to_s] = nil; result })
 
       self.attributes ||= {}
       self.is_created = attr_hash.delete("persisted") || false
