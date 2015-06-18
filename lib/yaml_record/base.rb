@@ -15,7 +15,7 @@ module YamlRecord
     #
     def initialize(attr_hash={})
       attr_hash.deep_stringify_keys!
-      attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key.to_s] = nil; result })
+      attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key] = nil; result })
 
       self.attributes ||= {}
       self.is_created = attr_hash.delete("persisted") || false
@@ -270,7 +270,7 @@ module YamlRecord
     #
     def self.all
       raw_items = self.adapter.read(self.source) || []
-      raw_items.map { |item| self.new(item.merge(:persisted => true)) }
+      raw_items.map { |item| self.new(item.merge("persisted" => true)) }
     end
 
     # Find last YamlRecord instance given a limit
@@ -328,7 +328,7 @@ module YamlRecord
       elsif names.size > 0 # setter
         names = names | [:id]
         setup_properties!(*names)
-        @_properties += names
+        @_properties += names.map(&:to_s)
       end
     end
 
