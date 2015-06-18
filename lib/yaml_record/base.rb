@@ -397,8 +397,8 @@ module YamlRecord
     #
     def self.setup_properties!(*names)
       names.each do |name|
-        define_method(name) { self[name.to_sym] }
-        define_method("#{name}=") { |val| self[name.to_sym] = val  }
+        define_method(name) { self[name.to_s] }
+        define_method("#{name}=") { |val| self[name.to_s] = val  }
       end
     end
 
