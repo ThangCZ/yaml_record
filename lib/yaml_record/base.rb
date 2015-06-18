@@ -31,7 +31,7 @@ module YamlRecord
     #   @post[:foo] => "bar"
     #
     def [](attribute)
-      self.attributes[attribute]
+      self.attributes[attribute.to_s]
     end
 
     # Assign given attribute from YamlRecord instance with specified value
@@ -41,7 +41,7 @@ module YamlRecord
     #   @post[:foo] = "baz"
     #
     def []=(attribute, value)
-      self.attributes[attribute] = value
+      self.attributes[attribute.to_s] = value
     end
 
     # Saved YamlRecord instance to file
