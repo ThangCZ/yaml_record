@@ -18,7 +18,7 @@ module YamlRecord
       attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key] = nil; result })
 
       self.attributes ||= {}
-      self.is_created = attr_hash.delete(:persisted) || false
+      self.is_created = attr_hash.delete("persisted") || false
       attr_hash.each do |k,v|
         self.send("#{k}=", v) # self.attributes[:media] = "foo"
       end
