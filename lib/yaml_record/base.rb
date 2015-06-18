@@ -84,7 +84,7 @@ module YamlRecord
     #
     def update_attributes(updated_attrs={})
       updated_attrs.each { |k,v| self.send("#{k}=", v) }
-      self.save
+      self.save if self.valid?
     end
     alias_method :update, :update_attributes
 
