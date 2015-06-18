@@ -65,7 +65,7 @@ module YamlRecord
         updated_item.attributes = self.attributes
       end
 
-      raw_data = existing_items ? existing_items.map { |item| item.persisted_attributes } : []
+      raw_data = existing_items ? existing_items.map { |item| item.persisted_attributes.deep_stringify_keys } : []
       self.class.write_contents(raw_data) if self.valid?
 
       run_callbacks(:after_create) unless self.is_created
