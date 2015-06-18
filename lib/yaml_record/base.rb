@@ -14,7 +14,7 @@ module YamlRecord
     #   Post.new(:foo  => "bar")
     #
     def initialize(attr_hash={})
-      attr_hash.symbolize_keys!
+      attr_hash.deep_stringify_keys!
       attr_hash.reverse_merge!(self.class.properties.inject({}) { |result, key| result[key] = nil; result })
 
       self.attributes ||= {}
@@ -83,6 +83,7 @@ module YamlRecord
     #   @post.update_attributes(:foo  => "baz", :miso => "awesome") => true
     #
     def update_attributes(updated_attrs={})
+      updated_attrs.deep_stringify_keys!
       updated_attrs.each { |k,v| self.send("#{k}=", v) }
       self.save if self.valid?
     end
